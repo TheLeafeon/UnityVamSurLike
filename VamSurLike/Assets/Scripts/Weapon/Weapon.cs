@@ -12,6 +12,14 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
+    float timer;
+
+    PlayerMovement playerMovement;
+
+    private void Awake()
+    {
+        playerMovement = GetComponentInParent<PlayerMovement>(); 
+    }
 
     private void Start()
     {
@@ -32,9 +40,10 @@ public class Weapon : MonoBehaviour
                 Batch();
 
                 break;
-            case 1:
-                break;
             default:
+
+                
+                speed = 0.3f;
                 break;
         }
     }
@@ -63,7 +72,7 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1);// -1 is Infinity Per.
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);// -1 is Infinity Per.
 
         }
     }
@@ -75,9 +84,15 @@ public class Weapon : MonoBehaviour
             case 0:
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
                 break;
-            case 1:
-                break;
+
             default:
+                timer += Time.deltaTime;
+                
+                if (timer > speed) 
+                {
+                    timer = 0.0f;
+                    Fire();
+                }
                 break;
         }
 
@@ -98,5 +113,23 @@ public class Weapon : MonoBehaviour
         {
             Batch();
         }
+    }
+
+    private void Fire()
+    {
+        if(!playerMovement.scanner.nearestTarget)
+            return;
+
+        Vector3 targetPos = playerMovement.scanner.nearestTarget.position;
+        Vector3 dir = targetPos - transform.position;
+        dir = dir.normalized;
+
+        Transform bullet = GameManager.instance.poolingManager.Get(prefabId).transform;
+        bullet.position = transform.position;
+
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+
+        bullet.GetComponent<Bullet>().Init(damage, count, dir);
+
     }
 }

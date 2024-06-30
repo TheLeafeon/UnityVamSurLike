@@ -11,13 +11,15 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
 
     public float Speed;
+    public Scanner scanner;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();   
         spriter = GetComponent<SpriteRenderer>(); 
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
+        scanner = GetComponent<Scanner>();
     }
 
     private void FixedUpdate()

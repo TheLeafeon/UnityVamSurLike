@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004649018391923325}
   - component: {fileID: 6744008797361932036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1382498039342427405}
   - component: {fileID: 3870179846659749251}
   - component: {fileID: 562280014267044503}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -276,6 +276,7 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 050556270436d4f4288557291a1a99c0, type: 2}
   - {fileID: 22100000, guid: 12cfc8b2360c2fc4499d4f6f6607671a, type: 2}
   target: {fileID: 0}
+  coll: {fileID: 0}
 --- !u!114 &562280014267044503
 MonoBehaviour:
   m_ObjectHideFlags: 0
